@@ -1,8 +1,12 @@
 <?php
-$host = '';
-$db   = '';
-$user = '';
-$pass = '';
+$host = 'sql10.freesqldatabase.com';
+$db   = 'sql10791490';
+$user = 'sql10791490';
+$pass = 'BetwvYBKnN';
 
-$dsn = "mysql:host=$host;dbname=$db";
+$conn = new mysqli($host, $user, $pass, $db);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 ?>
