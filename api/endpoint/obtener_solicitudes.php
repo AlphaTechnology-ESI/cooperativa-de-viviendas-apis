@@ -66,13 +66,13 @@ JOIN solicitud_unidad_habitacional s ON u.id_usuario = s.id_usuario
     }
 
     echo json_encode([
-        "success" => "ok",
-        "data" => $solicitudes
+        "estado" => "ok",
+        "solicitudes" => $solicitudes
     ]);
 } catch (Exception $e) {
     echo json_encode([
-        "success" => "error",
-        "message" => "Error al obtener las solicitudes: " . $e->getMessage()
+        "estado" => "error",
+        "mensaje" => "Error al obtener las solicitudes: " . $e->getMessage()
     ]);
 }
 ?>
