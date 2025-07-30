@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] !== "GET") {
     exit;
 }
 
-include("../config/db.php");
+include("../../config/db.php");
 
 try {
     $sql = "SELECT 
