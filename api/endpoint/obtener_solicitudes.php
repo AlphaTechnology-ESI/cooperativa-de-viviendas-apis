@@ -19,25 +19,25 @@ include("../config/db.php");
 
 try {
     $sql = "SELECT 
-                u.id AS id_usuario,
-                s.id AS id_solicitud,
-                s.fecha_solicitud,
-                u.nom_usu AS nombre,
-                u.DNI,
-                u.correo AS email,
-                u.telefono,
-                u.Fecha_Nacimiento AS fecha_nacimiento,
-                u.Estado_Civil AS estado_civil,
-                u.Ocupacion AS ocupacion,
-                u.Ingresos AS ingresos,
-                s.Vivienda_Seleccionada,
-                s.Monto_Inicial,
-                s.Forma_Pago,
-                s.Grupo_Familiar,
-                s.Comentarios,
-                s.Estado_Solicitud
-            FROM usuario_pendiente u
-            INNER JOIN solicitud_unidad_habitacional s ON u.id = s.id_usuario
+    u.id_usuario,
+    u.nom_usu,
+    u.correo,
+    u.telefono,
+    u.DNI,
+    u.Fecha_Nacimiento,
+    u.Estado_Civil,
+    u.Ocupacion,
+    u.Ingresos,
+    s.Vivienda_Seleccionada,
+    s.Monto_Inicial,
+    s.Forma_Pago,
+    s.Grupo_Familiar,
+    s.Comentarios,
+    s.estado_solicitud,
+    s.id_solicitud ,
+    s.fecha_solicitud
+FROM usuario_pendiente u
+JOIN solicitud_unidad_habitacional s ON u.id_usuario = s.id_usuario
             ORDER BY s.fecha_solicitud DESC";
 
     $resultado = $conn->query($sql);
@@ -48,30 +48,30 @@ try {
         $solicitudes[] = [
             "id" => $fila["id_solicitud"],
             "fecha_solicitud" => $fila["fecha_solicitud"],
-            "nombre" => $fila["nombre"],
-            "dni" => $fila["DNI"],
-            "email" => $fila["email"],
+            "nom_usu" => $fila["nom_usu"],
+            "DNI" => $fila["DNI"],
+            "correo" => $fila["correo"],
             "telefono" => $fila["telefono"],
-            "fecha_nacimiento" => $fila["fecha_nacimiento"],
-            "estado_civil" => $fila["estado_civil"],
-            "ocupacion" => $fila["ocupacion"],
-            "ingresos" => $fila["ingresos"],
-            "vivienda_seleccionada" => $fila["Vivienda_Seleccionada"],
-            "monto_inicial" => floatval($fila["Monto_Inicial"]),
-            "forma_pago" => $fila["Forma_Pago"],
-            "grupo_familiar" => $fila["Grupo_Familiar"],
-            "comentarios" => $fila["Comentarios"],
-            "estado_solicitud" => $fila["Estado_Solicitud"]
+            "Fecha_Nacimiento" => $fila["Fecha_Nacimiento"],
+            "Estado_Civil" => $fila["Estado_Civil"],
+            "Ocupacion" => $fila["Ocupacion"],
+            "Ingresos" => $fila["Ingresos"],
+            "Vivienda_Seleccionada" => $fila["Vivienda_Seleccionada"],
+            "Monto_Inicial" => floatval($fila["Monto_Inicial"]),
+            "Forma_Pago" => $fila["Forma_Pago"],
+            "Grupo_Familiar" => $fila["Grupo_Familiar"],
+            "Comentarios" => $fila["Comentarios"],
+            "estado_solicitud" => $fila["estado_solicitud"]
         ];
     }
 
     echo json_encode([
-        "success" => true,
+        "success" => "ok",
         "data" => $solicitudes
     ]);
 } catch (Exception $e) {
     echo json_encode([
-        "success" => false,
+        "success" => "error",
         "message" => "Error al obtener las solicitudes: " . $e->getMessage()
     ]);
 }
