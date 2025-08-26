@@ -3,7 +3,7 @@ USE cooperativa_cooptrack;
 
 CREATE TABLE IF NOT EXISTS usuario (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
-    id_persona INT AUTO_INCREMENT UNIQUE,
+    id_persona INT UNIQUE,
     nomusu VARCHAR(50),
     correo VARCHAR(100),
     contrasena VARCHAR(50)
@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS usuario (
 
 CREATE TABLE IF NOT EXISTS admins (
     id_admin INT AUTO_INCREMENT PRIMARY KEY,
-    id_persona INT AUTO_INCREMENT,
+    id_persona INT UNIQUE,
     nomadm VARCHAR(50),
     correo VARCHAR(100),
     contrasena VARCHAR(50),
