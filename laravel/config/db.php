@@ -1,16 +1,16 @@
 <?php
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db= "cooperativa_cooptrack";
+$host = getenv('DB_HOST');
+$user = getenv('DB_USER');
+$pass = getenv('DB_PASS');
+$db   = getenv('DB_NAME');
 
-$conn = new mysqli($host, $user, $pass);
+$conn = new mysqli($host, $user, $pass, $db);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = file_get_contents("http://localhost/cooperativa-de-viviendas-apis/api/config/db.sql");
+$sql = file_get_contents(__DIR__ . '/db.sql');
 
 if ($conn->multi_query($sql)) {
     do {
