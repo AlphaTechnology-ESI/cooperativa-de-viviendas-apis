@@ -56,7 +56,7 @@ RUN mkdir -p /var/log/php && touch /var/log/php/errors.log && chmod 777 /var/log
 
 RUN cp docker/.env.production .env
 # Deployment steps
-RUN composer install --ignore-platform-reqs --optimize-autoloader --no-dev
+# RUN composer install --ignore-platform-reqs --optimize-autoloader --no-dev
 
 RUN chmod +x /var/www/docker/run.sh
 
