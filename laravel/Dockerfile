@@ -60,12 +60,11 @@ RUN cp docker/.env.production .env
 
 RUN chmod +x /var/www/docker/run.sh
 
+CMD ["php", "-S", "0.0.0.0:80", "-t", "/var/www/endpoint"]
 
 EXPOSE 80
 
-ENTRYPOINT ["/var/www/docker/run.sh"]
-
-
+# ENTRYPOINT ["/var/www/docker/run.sh"]
 
 
 
