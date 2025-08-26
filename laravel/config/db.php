@@ -3,8 +3,7 @@ $host = getenv('DB_HOST');
 $db   = getenv('DB_NAME');
 $pass = getenv('DB_PASS');
 $user = getenv('DB_USER');
-$port = getenv('DB_PORT');
-
+$port = intval(getenv('DB_PORT'));
 $conn = new mysqli($host, $user, $pass, $db, $port);
 
 if ($conn->connect_error) {
