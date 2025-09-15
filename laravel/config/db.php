@@ -3,11 +3,15 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 
-$host = getenv('DB_HOST');
-$db   = getenv('DB_NAME');
-$pass = getenv('DB_PASS');
-$user = getenv('DB_USER');
-$port = intval(getenv('DB_PORT'));
+if (file_exists(__DIR__  . '/db_externa.php')) {
+    include __DIR__ . '/db_externa.php';
+} else {
+    $host = 'localhost';
+    $db   = 'cooperativa_cooptrack';
+    $user = 'root';
+    $pass = '';
+    $port = 3306;
+}
 
 $conn = new mysqli($host, $user, $pass, $db, $port);
 
@@ -36,6 +40,3 @@ foreach ($statements as $stmt) {
         }
     }
 }
-
-echo "db.sql ejecutado correctamente.";
-?>
