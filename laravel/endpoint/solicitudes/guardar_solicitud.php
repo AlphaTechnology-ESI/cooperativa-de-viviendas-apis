@@ -20,7 +20,7 @@ if (!$input) {
 try {
     // Insertar en usuario_pendiente
 $stmt1 = $conn->prepare("INSERT INTO usuario_pendiente
-    (nom_usu, correo, telefono, DNI, Fecha_Nacimiento, Estado_Civil, Ocupacion, Ingresos)
+    (nom_usu, correo, telefono, cedula, fecha_nacimiento, estado_civil, ocupacion, ingresos)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
 $stmt1->bind_param("ssssssss",

@@ -4,16 +4,38 @@ USE cooperativa_cooptrack;
 CREATE TABLE IF NOT EXISTS usuario (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     id_persona INT UNIQUE,
-    nomusu VARCHAR(50),
-    correo VARCHAR(100),
+    nom_usu VARCHAR(100) NOT NULL,
+    correo VARCHAR(100) NOT NULL UNIQUE,
+    telefono VARCHAR(20),
+    cedula VARCHAR(8) NOT NULL UNIQUE,
+    fecha_nacimiento DATE,
+    estado_civil ENUM('soltero', 'casado', 'divorciado', 'viudo', 'union_convivencial'),
+    ocupacion VARCHAR(100),
+    ingresos ENUM('hasta_500000', '500000_1000000', '1000000_1500000', '1500000_2000000', 'mas_2000000'),
     contrasena VARCHAR(50)
+);
+
+CREATE TABLE IF NOT EXISTS usuario_pendiente (
+    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+    nom_usu VARCHAR(100) NOT NULL,
+    correo VARCHAR(100) NOT NULL UNIQUE,
+    telefono VARCHAR(20),
+    cedula VARCHAR(8) NOT NULL UNIQUE,
+    fecha_nacimiento DATE,
+    estado_civil ENUM('soltero', 'casado', 'divorciado', 'viudo', 'union_convivencial'),
+    ocupacion VARCHAR(100),
+    ingresos ENUM('hasta_500000', '500000_1000000', '1000000_1500000', '1500000_2000000', 'mas_2000000'),
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    estado ENUM('pendiente', 'aprobado', 'activo', 'suspendido', 'rechazado') DEFAULT 'pendiente'
 );
 
 CREATE TABLE IF NOT EXISTS admins (
     id_admin INT AUTO_INCREMENT PRIMARY KEY,
     id_persona INT UNIQUE,
-    nomadm VARCHAR(50),
+    nom_adm VARCHAR(50),
     correo VARCHAR(100),
+    telefono VARCHAR(20),
+    tipo_admin ENUM('tesorero, presidente, secretario'),
     contrasena VARCHAR(50),
     FOREIGN KEY (id_persona) REFERENCES usuario(id_persona)
 );
@@ -65,21 +87,6 @@ CREATE TABLE IF NOT EXISTS jornada_trabajo (
     fecha DATE,
     id_usuario INT,
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
-);
-
-CREATE TABLE IF NOT EXISTS usuario_pendiente (
-    id_usuario INT PRIMARY KEY,
-    nom_usu VARCHAR(100) NOT NULL,
-    correo VARCHAR(100) NOT NULL UNIQUE,
-    telefono VARCHAR(20),
-    DNI VARCHAR(20) NOT NULL UNIQUE,
-    Fecha_Nacimiento DATE,
-    Estado_Civil ENUM('soltero', 'casado', 'divorciado', 'viudo', 'union_convivencial'),
-    Ocupacion VARCHAR(100),
-    Ingresos ENUM('hasta_500000', '500000_1000000', '1000000_1500000', '1500000_2000000', 'mas_2000000'),
-    Direccion TEXT,
-    Fecha_Registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    Estado ENUM('pendiente', 'aprobado', 'activo', 'suspendido', 'rechazado') DEFAULT 'pendiente'
 );
 
 CREATE TABLE IF NOT EXISTS solicitud_unidad_habitacional (
