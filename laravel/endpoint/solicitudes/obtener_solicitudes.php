@@ -35,7 +35,8 @@ try {
     s.Comentarios,
     s.estado_solicitud,
     s.id_solicitud ,
-    s.fecha_solicitud
+    s.fecha_solicitud, 
+    s.Fecha_Evaluacion
 FROM usuario_pendiente u
 JOIN solicitud_unidad_habitacional s ON u.id_usuario = s.id_usuario
             ORDER BY s.fecha_solicitud DESC";
@@ -62,10 +63,9 @@ JOIN solicitud_unidad_habitacional s ON u.id_usuario = s.id_usuario
             "Forma_Pago" => $fila["Forma_Pago"],
             "Grupo_Familiar" => $fila["Grupo_Familiar"],
             "Comentarios" => $fila["Comentarios"],
-            "estado_solicitud" => $fila["estado_solicitud"]  // no Estado_Solicitud
+            "estado_solicitud" => $fila["estado_solicitud"],
+            "fecha_evaluacion" => $fila["Fecha_Evaluacion"] ?? null
         ];
-
-
     }
 
     echo json_encode([
