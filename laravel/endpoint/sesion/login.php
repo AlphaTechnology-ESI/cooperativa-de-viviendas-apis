@@ -31,7 +31,8 @@ $correo = $input["correo"];
 $contrasena = $input["contrasena"];
 
 // Función para verificar usuario en la base
-function verificarUsuario($conn, $tabla, $correo, $contrasena) {
+function verificarUsuario($conn, $tabla, $correo, $contrasena)
+{
     $stmt = $conn->prepare("SELECT * FROM $tabla WHERE correo = ?");
     $stmt->bind_param("s", $correo);
     $stmt->execute();
@@ -56,7 +57,27 @@ if ($rol) {
     $_SESSION["correo"] = $correo;
     $_SESSION["rol"] = $rol;
 
-    echo json_encode(["estado" => "ok", "rol" => $rol]);
+    $stmt = $conn->prepare(
+        "SELECT " .
+        ($rol === "admins" ? "id_admin, nom_admin" : "id_usuario, nom_usu") .
+        " AS nombre, " .
+        ($rol === "admins" ? "id_admin" : "id_usuario") . " AS id 
+    FROM $rol WHERE correo = ?"
+    );
+    $stmt->bind_param("s", $correo);
+    $stmt->execute();
+    $resultUser = $stmt->get_result();
+    $userData = $resultUser->fetch_assoc();
+
+
+    echo json_encode([
+        "estado" => "ok",
+        "rol" => $rol,
+        "nombre" => $userData["nombre"] ?? "",
+        "id" => $userData["id"] ?? null
+    ]);
+
+
 } else {
     echo json_encode(["estado" => "error", "mensaje" => "Credenciales inválidas"]);
 }
