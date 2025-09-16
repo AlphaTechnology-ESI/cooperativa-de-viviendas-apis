@@ -1,13 +1,18 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: Content-Type");
-header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
-if (file_exists(__DIR__  . '/db_externa.php')) {
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
+
+if (file_exists(__DIR__ . '/db_externa.php')) {
     include __DIR__ . '/db_externa.php';
 } else {
     $host = 'localhost';
-    $db   = 'cooperativa_cooptrack';
+    $db = 'cooperativa_cooptrack';
     $user = 'root';
     $pass = '';
     $port = 3306;
