@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
     locales \
     jpegoptim optipng pngquant gifsicle \
     git \
-    curl 
+    curl \
     nginx \
     nano
 
