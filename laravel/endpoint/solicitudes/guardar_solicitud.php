@@ -40,7 +40,6 @@ $stmt1->bind_param("ssssssss",
 
     $id_usuario = $conn->insert_id;
 
-    // Insertar en solicitud_unidad_habitacional
     $stmt2 = $conn->prepare("INSERT INTO solicitud_unidad_habitacional 
         (id_usuario, Vivienda_Seleccionada, Monto_Inicial, Forma_Pago, Grupo_Familiar, Comentarios) 
         VALUES (?, ?, ?, ?, ?, ?)");

@@ -57,7 +57,6 @@ try {
     );
     $stmtInsert->execute();
 
-    // Actualizar estado de la solicitud a aprobada
     $stmtUpdate = $conn->prepare("UPDATE solicitud_unidad_habitacional SET Estado_Solicitud='aprobada', Fecha_Evaluacion=NOW() WHERE id_usuario=?");
     $stmtUpdate->bind_param("i", $id_usuario);
     $stmtUpdate->execute();

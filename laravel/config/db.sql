@@ -1,4 +1,4 @@
-
+CREATE DATABASE IF NOT EXISTS cooperativa_cooptrack;
 USE cooperativa_cooptrack;
 
 CREATE TABLE IF NOT EXISTS usuario (
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS usuario_pendiente (
 CREATE TABLE IF NOT EXISTS admins (
     id_admin INT AUTO_INCREMENT PRIMARY KEY,
     id_persona INT UNIQUE,
-    nom_adm VARCHAR(50),
+    nom_admin VARCHAR(50),
     correo VARCHAR(100),
     telefono VARCHAR(20),
     tipo_admin ENUM('tesorero', 'presidente', 'secretario'),
@@ -106,8 +106,8 @@ CREATE TABLE IF NOT EXISTS solicitud_unidad_habitacional (
 
 
 
-INSERT INTO admins (correo, contrasena)
-SELECT * FROM (SELECT 'admin@gmail.com', '4321') AS tmp
+INSERT INTO admins (nom_admin, correo, contrasena)
+SELECT * FROM (SELECT 'Admin', 'admin@gmail.com', '4321') AS tmp
 WHERE NOT EXISTS (
   SELECT 1 FROM admins WHERE correo = 'admin@gmail.com'
 ) LIMIT 1;
