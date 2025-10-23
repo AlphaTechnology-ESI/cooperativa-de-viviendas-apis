@@ -16,8 +16,10 @@ RUN apt-get update && apt-get install -y \
     jpegoptim optipng pngquant gifsicle \
     git \
     curl \
-    nginx \
-    nano
+    nano \
+    apache2 \
+    libapache2-mod-php8.0 \
+    php8.0-mysql
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -51,7 +53,5 @@ CMD ["php", "-S", "0.0.0.0:80", "-t", "/var/www/endpoint"]
 EXPOSE 80
 
 # ENTRYPOINT ["/var/www/docker/run.sh"]
-
-
 
 # CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
