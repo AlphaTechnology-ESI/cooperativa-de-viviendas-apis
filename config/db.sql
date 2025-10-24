@@ -81,13 +81,14 @@ CREATE TABLE IF NOT EXISTS aporte_inicial (
 
 CREATE TABLE IF NOT EXISTS jornada_trabajo (
     id_jornada INT AUTO_INCREMENT PRIMARY KEY,
-    tipo_compensacion VARCHAR(50),
-    motivo_inasistencia VARCHAR(100),
+    tipo_compensacion VARCHAR(50) DEFAULT NULL,
+    motivo_inasistencia VARCHAR(100) DEFAULT NULL,
     horas_trabajadas INT NOT NULL,
     fecha DATE NOT NULL,
     id_usuario INT NOT NULL,
-    comprobante LONGBLOB,
-    comprobante_nombre VARCHAR(255),
+    comprobante LONGBLOB DEFAULT NULL,
+    comprobante_nombre VARCHAR(255) DEFAULT NULL,
+    estado ENUM('pendiente','aprobada','rechazada') DEFAULT 'pendiente',
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
 
