@@ -11,27 +11,35 @@ if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
 
 include("../../../config/db.php");
 
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    echo json_encode(["estado" => "error", "mensaje" => "Método no permitido"]);
-    exit;
-}
-
 $input = json_decode(file_get_contents("php://input"), true);
-$idUsuario = $input["id_usuario"] ?? null;
+$idUsuario = $input['id_usuario'] ?? null;
 
 if (!$idUsuario) {
-    echo json_encode(["estado" => "error", "mensaje" => "ID de usuario obligatorio"]);
+    echo json_encode(["estado" => "error", "mensaje" => "id_usuario requerido"]);
     exit;
 }
 
-$stmt = $conn->prepare("SELECT * FROM jornada_trabajo WHERE id_usuario = ? ORDER BY fecha DESC");
+$stmt = $conn->prepare("SELECT id_jornada, fecha, horas_trabajadas, comprobante_nombre FROM jornada_trabajo WHERE id_usuario = ? ORDER BY fecha DESC, id_jornada DESC");
+if (!$stmt) {
+    echo json_encode(["estado" => "error", "mensaje" => "Error preparando consulta: " . $conn->error]);
+    exit;
+}
+
 $stmt->bind_param("i", $idUsuario);
 $stmt->execute();
-$result = $stmt->get_result();
+$res = $stmt->get_result();
 
 $horas = [];
-while ($row = $result->fetch_assoc()) {
-    $horas[] = $row;
+while ($row = $res->fetch_assoc()) {
+    $horas[] = [
+        "id_jornada" => intval($row["id_jornada"]),
+        "fecha" => $row["fecha"],
+        "horas_trabajadas" => intval($row["horas_trabajadas"]),
+        "comprobante_nombre" => $row["comprobante_nombre"]
+    ];
 }
 
 echo json_encode(["estado" => "ok", "horas" => $horas]);
+
+$stmt->close();
+$conn->close();

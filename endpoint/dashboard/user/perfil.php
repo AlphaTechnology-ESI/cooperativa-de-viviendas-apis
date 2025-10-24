@@ -36,6 +36,5 @@ if ($result->num_rows === 0) {
     exit;
 }
 
-// Aquí es clave: envolver los datos en 'usuario'
 $usuario = $result->fetch_assoc();
 echo json_encode(["estado" => "ok", "usuario" => $usuario]);

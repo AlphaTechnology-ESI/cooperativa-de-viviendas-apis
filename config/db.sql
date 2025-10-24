@@ -83,9 +83,11 @@ CREATE TABLE IF NOT EXISTS jornada_trabajo (
     id_jornada INT AUTO_INCREMENT PRIMARY KEY,
     tipo_compensacion VARCHAR(50),
     motivo_inasistencia VARCHAR(100),
-    horas_trabajadas INT,
-    fecha DATE,
-    id_usuario INT,
+    horas_trabajadas INT NOT NULL,
+    fecha DATE NOT NULL,
+    id_usuario INT NOT NULL,
+    comprobante LONGBLOB,
+    comprobante_nombre VARCHAR(255),
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
 
