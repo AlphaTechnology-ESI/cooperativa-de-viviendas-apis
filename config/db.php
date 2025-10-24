@@ -18,8 +18,7 @@ if (file_exists(__DIR__ . '/db_externa.php')) {
     $port = 3306;
 }
 
-$conn = new mysqli($host, $user, $pass, $db, $port);
-
+$conn = new mysqli($host, $user, $pass, "", $port);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -45,3 +44,5 @@ foreach ($statements as $stmt) {
         }
     }
 }
+
+$conn->select_db($db);
