@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 if (file_exists(__DIR__ . '/db_externa.php')) {
     include __DIR__ . '/db_externa.php';
 } else {
-    $host = 'localhost';
+    $host = 'host.docker.internal';
     $db = 'cooperativa_cooptrack';
     $user = 'root';
     $pass = '';
