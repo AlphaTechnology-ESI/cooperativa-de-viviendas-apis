@@ -12,7 +12,8 @@ sudo sed -i 's/bind-address.*=.*127\.0\.0\.1/bind-address = 0.0.0.0/' /etc/mysql
 
 # Configurar permisos de usuario
 echo "Configurando permisos de MySQL..."
-sudo mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '';"
+sudo mysql -u root -e "CREATE USER IF NOT EXISTS 'root'@'%';"
+sudo mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;"
 sudo mysql -u root -e "FLUSH PRIVILEGES;"
 
 # Reiniciar MySQL
@@ -22,4 +23,4 @@ sudo systemctl restart mysql
 # Verificar configuración
 echo "Verificando configuración..."
 echo "Puerto 3306 está escuchando en:"
-sudo netstat -tulnp | grep :3306
+sudo ss -tulnp | grep :3306
