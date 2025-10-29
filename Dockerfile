@@ -1,7 +1,7 @@
-FROM php:8.0-fpm AS build
+FROM php:8.0-cli AS build
 
 # Set working directory
-WORKDIR /var/www
+WORKDIR /var/www/cooperativa-de-viviendas-apis
 
 # Add docker php ext repo
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
@@ -16,42 +16,18 @@ RUN apt-get update && apt-get install -y \
     jpegoptim optipng pngquant gifsicle \
     git \
     curl \
-    nano \
-    apache2 \
-    libapache2-mod-php8.0 \
-    php8.0-mysql
+    nano
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Add user for laravel application
+# Add user for application
 RUN groupadd -g 1000 www && useradd -u 1000 -ms /bin/bash -g www www
 
 # Copy code to /var/www
-COPY --chown=www:www-data . /var/www
+COPY --chown=www:www-data . /var/www/cooperativa-de-viviendas-apis
 
-# add root to www group
-RUN mkdir -p /var/www/storage /var/www/bootstrap/cache && chmod -R ug+w /var/www/storage /var/www/bootstrap/cache
-
-# Copy nginx/php/supervisor configs
-RUN cp docker/supervisor.conf /etc/supervisord.conf
-RUN cp docker/php.ini /usr/local/etc/php/conf.d/app.ini
-RUN cp docker/nginx.conf /etc/nginx/sites-enabled/default
-
-# PHP Error Log Files
-RUN mkdir -p /var/log/php && touch /var/log/php/errors.log && chmod 777 /var/log/php/errors.log
-
-
-RUN cp docker/.env.production .env
-# Deployment steps
-# RUN composer install --ignore-platform-reqs --optimize-autoloader --no-dev
-
-RUN chmod +x /var/www/docker/run.sh
-
-CMD ["php", "-S", "0.0.0.0:80", "-t", "/var/www/endpoint"]
+# Start PHP built-in server via run.sh
+CMD ["/var/www/cooperativa-de-viviendas-apis/docker/run.sh"]
 
 EXPOSE 80
-
-# ENTRYPOINT ["/var/www/docker/run.sh"]
-
-# CMD ["/usr/sbin/nginx", "-g", "daemon off;"]

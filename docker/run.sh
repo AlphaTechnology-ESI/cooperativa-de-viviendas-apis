@@ -1,7 +1,5 @@
-#!/bin/sh
+#!/bin/bash
 
-cd /var/www
+cd /var/www/cooperativa-de-viviendas-apis/endpoint
 
-php-fpm &
-
-nginx -g 'daemon off;'
+php -S 0.0.0.0:80
