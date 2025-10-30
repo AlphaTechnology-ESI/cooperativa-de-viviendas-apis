@@ -28,6 +28,6 @@ RUN groupadd -g 1000 www && useradd -u 1000 -ms /bin/bash -g www www
 COPY --chown=www:www-data . /var/www/cooperativa-de-viviendas-apis
 
 # Iniciar servidor PHP integrado
-CMD ["php", "-S", "0.0.0.0:80", "-t", "/var/www/cooperativa-de-viviendas-apis/endpoint"]
+CMD ["php", "-S", "0.0.0.0:80", "-t", "/var/www/cooperativa-de-viviendas-apis"]
 
 EXPOSE 80
