@@ -18,7 +18,7 @@ if (file_exists(__DIR__ . '/config_db.php')) {
     $port = 3306;
 }
 
-error_log("Valor de host: " . $host, 3, "/tmp/valor_host.log");
+file_put_contents("/tmp/valor_host.log", date('Y-m-d H:i:s') . " Valor de host: " . $host . "\n", FILE_APPEND);
 
 $conn = new mysqli($host, $user, $pass, "", $port);
 if ($conn->connect_error) {
