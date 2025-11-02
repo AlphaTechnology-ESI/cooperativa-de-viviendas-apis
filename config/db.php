@@ -22,8 +22,7 @@ if (file_exists(__DIR__ . '/db_externa.php')) {
 
 $conn = new mysqli($host, $user, $pass, "", $port);
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-    die("Valor de host: " . $host);
+    die("Connection failed: " . $conn->connect_error . "\nValor de host: " . $host);
 }
 
 // Leer archivo SQL
