@@ -10,8 +10,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 if (file_exists(__DIR__ . '/db_externa.php')) {
     include __DIR__ . '/db_externa.php';
+} elseif (file_exists(__DIR__ . '/config_db.php')) {
+    include __DIR__ . '/config_db.php';
 } else {
-    $host = '192.168.1.48';
+    $host = 'localhost';
     $db = 'cooperativa_cooptrack';
     $user = 'root';
     $pass = '';
