@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 if (file_exists(__DIR__ . '/config_db.php')) {
     include __DIR__ . '/config_db.php';
 } else {
-    $host = 'host.docker.internal';
+    $host = '192.168.1.68';
     $db = 'cooperativa_cooptrack';
     $user = 'root';
     $pass = '';
