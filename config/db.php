@@ -8,9 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-if (file_exists(__DIR__ . '/db_externa.php')) {
-    include __DIR__ . '/db_externa.php';
-} elseif (file_exists(__DIR__ . '/config_db.php')) {
+if (file_exists(__DIR__ . '/config_db.php')) {
     include __DIR__ . '/config_db.php';
 } else {
     $host = 'localhost';
@@ -20,6 +18,8 @@ if (file_exists(__DIR__ . '/db_externa.php')) {
     $port = 3306;
 }
 
+ini_set('log_errors', 1);
+ini_set('error_log', '/var/log/apache2/error.log');
 error_log("Valor de host: " . $host);
 
 $conn = new mysqli($host, $user, $pass, "", $port);
