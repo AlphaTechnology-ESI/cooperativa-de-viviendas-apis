@@ -11,14 +11,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 if (file_exists(__DIR__ . '/config_db.php')) {
     include __DIR__ . '/config_db.php';
 } else {
-    $host = '192.168.1.67';
+    $host = 'host.docker.internal';
     $db = 'cooperativa_cooptrack';
     $user = 'root';
     $pass = '';
     $port = 3306;
 }
-
-file_put_contents("/tmp/valor_host.log", date('Y-m-d H:i:s') . " Valor de host: " . $host . "\n", FILE_APPEND);
 
 $conn = new mysqli($host, $user, $pass, "", $port);
 if ($conn->connect_error) {
