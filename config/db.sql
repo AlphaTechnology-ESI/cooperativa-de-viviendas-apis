@@ -63,8 +63,8 @@ CREATE TABLE IF NOT EXISTS asignaunidad (
 CREATE TABLE IF NOT EXISTS pago_mensual (
     id_pago INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT,
-    estado_pago VARCHAR(50),
-    comprobante_pago VARCHAR(100),
+    estado_pago VARCHAR(50) DEFAULT 'pendiente',,
+    comprobante_pago LONGBLOB DEFAULT NULL,
     fecha DATE,
     fecha_envio DATE,
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
@@ -72,8 +72,8 @@ CREATE TABLE IF NOT EXISTS pago_mensual (
 
 CREATE TABLE IF NOT EXISTS aporte_inicial (
     id_aporte INT AUTO_INCREMENT PRIMARY KEY,
-    estado_validacion VARCHAR(50),
-    comprobante_pago VARCHAR(100),
+    estado_validacion VARCHAR(50) DEFAULT 'pendiente',,
+    comprobante_pago LONGBLOB DEFAULT NULL,
     fecha DATE,
     id_usuario INT,
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
