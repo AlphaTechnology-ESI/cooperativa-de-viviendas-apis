@@ -47,14 +47,14 @@ JOIN solicitud_unidad_habitacional s ON u.id_usuario = s.id_usuario
 
     while ($fila = $resultado->fetch_assoc()) {
         $solicitudes[] = [
-            "id" => $fila["id_solicitud"],            // no ID_Solicitud
+            "id" => $fila["id_solicitud"],
             "id_usuario" => $fila["id_usuario"],
-            "fecha_solicitud" => $fila["fecha_solicitud"],  // no Fecha_Solicitud
+            "fecha_solicitud" => $fila["fecha_solicitud"],
             "nom_usu" => $fila["nom_usu"],
             "cedula" => $fila["cedula"],
             "correo" => $fila["correo"],
             "telefono" => $fila["telefono"],
-            "fecha_nacimiento" => $fila["fecha_nacimiento"], // unifica el nombre
+            "fecha_nacimiento" => $fila["fecha_nacimiento"],
             "estado_civil" => $fila["estado_civil"],
             "ocupacion" => $fila["ocupacion"],
             "ingresos" => $fila["ingresos"],

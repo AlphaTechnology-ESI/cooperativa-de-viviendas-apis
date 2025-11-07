@@ -40,7 +40,7 @@ if (!$id_usuario) {
 // Listar pagos del usuario
 if ($accion === "listar") {
     // Primero, verificar y crear el pago mensual del mes actual si no existe
-    $mes_actual = date('Y-m-01'); // Primer día del mes actual
+    $mes_actual = date('Y-m-01');
     
     $sql_check = "SELECT id_pago FROM pago_mensual 
                   WHERE id_usuario = ? AND fecha = ?";
@@ -112,7 +112,7 @@ if ($accion === "listar") {
             'estado_pago' => $row['estado_validacion'],
             'comprobante_pago' => $row['comprobante_pago'],
             'tipo' => 'aporte_inicial',
-            'monto' => 500000 // $500.000
+            'monto' => 500000 
         ];
         // Agregar al inicio del array
         array_unshift($pagos, $aporte);
@@ -262,8 +262,6 @@ if ($accion === "ver_comprobante") {
             $extension = strtolower(pathinfo($comprobante, PATHINFO_EXTENSION));
             $tipo = ($extension === 'pdf') ? 'pdf' : 'image';
             
-            // En este caso, como guardamos solo el nombre, necesitarías la ruta completa
-            // Por ahora retornamos un mensaje indicando que existe
             echo json_encode([
                 "estado" => "ok",
                 "mensaje" => "Comprobante encontrado",
