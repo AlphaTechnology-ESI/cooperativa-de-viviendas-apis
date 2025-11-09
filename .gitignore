@@ -2,3 +2,4 @@ config_db.php
 .env
 backups/*.sql
 backups/
+vendor/
