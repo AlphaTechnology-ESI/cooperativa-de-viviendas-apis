@@ -8,8 +8,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-if (file_exists(__DIR__ . '/config_db.php')) {
-    include __DIR__ . '/config_db.php';
+$env_file = __DIR__ . '/.env';
+if (file_exists($env_file)) {
+    $env = parse_ini_file($env_file);
+    $host = $env['host'] ?? 'localhost';
+    $db   = $env['db'] ?? 'cooperativa_cooptrack';
+    $user = $env['user'] ?? 'root';
+    $pass = $env['pass'] ?? '';
+    $port = isset($env['port']) ? (int)$env['port'] : 3306;
 } else {
     $host = 'localhost';
     $db = 'cooperativa_cooptrack';
